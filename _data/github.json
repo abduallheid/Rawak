@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-11-08",
+  "source": "seed",
+  "scope": "6 featured repositories (seed data – the deploy workflow replaces this with all public, non-fork repositories on every build)",
+  "user": "abduallheid",
+  "public_repos": 6,
+  "total_stars": null,
+  "languages": [
+    { "name": "Jupyter Notebook", "repos": 4 },
+    { "name": "SQL", "repos": 1 },
+    { "name": "PHP / Laravel", "repos": 1 }
+  ]
+}

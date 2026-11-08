@@ -1,0 +1,68 @@
+# Newest first. `highlights` are shown as bullets; keep each to one result.
+- role: Data Analyst
+  org: Al Ramz
+  start: 2025-11
+  end: present
+  highlights:
+    - Built an end-to-end broker performance framework that classifies 1,000+ brokers into 6 performance tiers from activity rate, quality score and reservation-conversion data, cutting manual classification effort by ~70%.
+    - Engineered a daily operational Power BI and Microsoft Fabric dashboard with dynamic alert logic, dormancy detection, week-on-week CBS drop analysis and BPM portfolio filtering, cutting management reporting time from 3 days to under 4 hours.
+
+- role: Data Analyst Consultant
+  org: Tanmiah
+  start: 2024-10
+  end: present
+  highlights:
+    - Architected a central data warehouse integrating 12+ datasets from public agencies and NGOs, enforcing data-quality and governance standards; reporting time fell 40% and 5 policy teams can use the data at once.
+    - Built ETL pipelines and real-time Power BI dashboards for senior stakeholders, driving a 62% improvement in resource-allocation efficiency for community programmes serving 200,000+ beneficiaries.
+
+- role: Data Scientist (Freelance)
+  org: Upwork
+  start: 2021-01
+  end: present
+  highlights:
+    - Deployed a recommendation engine to production that suggests menu items from past order history, increasing average order size by 5%.
+    - Rolled out business-intelligence tooling tailored to each client's requirements, giving managers actionable reporting and a 26% improvement in operational efficiency.
+
+- role: Data Analyst
+  org: NAMAR
+  start: 2023-08
+  end: 2024-09
+  highlights:
+    - Analysed e-marketing, operations, distribution and quality data and defined the KPIs used to track sales growth, marketing performance and overall company performance.
+
+- role: Performance Analyst
+  org: Upper Egypt for Food Processing and Land Reclamation
+  start: 2022-11
+  end: 2024-01
+  highlights:
+    - Worked with stakeholders to decide what to measure, then analysed performance data to develop and test hypotheses about service and product design.
+
+- role: Data Analyst / Business Data Analyst
+  org: SoftwareONE
+  start: 2020-02
+  end: 2021-12
+  highlights:
+    - Developed and maintained KPIs, improving data quality by 13%, and used quantitative analysis to raise the effectiveness of commercial, tech and digital strategies by 12%.
+    - Optimised marketing campaigns for a 19% increase in customer engagement and a 14% lift in conversion rate.
+
+- role: Data Scientist Intern
+  org: Epsilon AI Institute
+  start: 2021-12
+  end: 2022-03
+  highlights:
+    - Produced business reports with advanced SQL, raising data accuracy and reporting efficiency by 25%.
+    - Optimised existing algorithms through analysis and modelling, reducing processing time by 15%.
+
+- role: Data Scientist Intern
+  org: The Sparks Foundation
+  start: 2021-09
+  end: 2021-11
+  highlights:
+    - Forecast Walmart store sales including the effect of promotional markdown events (Python).
+
+- role: Help Desk Analyst
+  org: PFG
+  start: 2019-12
+  end: 2021-09
+  highlights:
+    - Delivered a hospitality help-desk project that cut guest service-request resolution time by 22% and raised customer-satisfaction scores by 12%.

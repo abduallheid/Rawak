@@ -1,0 +1,22 @@
+{%- comment -%} include.project, include.heading (h2|h3), include.eager (true for above-the-fold) {%- endcomment -%}
+{%- assign p = include.project -%}
+{%- assign h = include.heading | default: "h3" -%}
+<li class="card-item" data-tags="{{ p.tags | join: ' ' }}">
+  <article class="card">
+    <img src="{{ p.image.base | append: '-sm.webp' | relative_url }}"
+         srcset="{{ p.image.base | append: '-sm.webp' | relative_url }} 640w, {{ p.image.base | append: '-lg.webp' | relative_url }} 1280w"
+         sizes="(min-width: 72rem) 22rem, (min-width: 40rem) 45vw, 92vw"
+         width="640" height="360" alt="{{ p.image.alt | escape }}"
+         {% if include.eager %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
+    <div class="card-body">
+      <{{ h }}><a href="{{ p.url | relative_url }}">{{ p.title }}</a></{{ h }}>
+      <p>{{ p.summary }}</p>
+      {%- if p.headline_result %}
+      <p class="card-result">{{ p.headline_result }}</p>
+      {%- endif %}
+      <ul class="chips">
+        {%- for t in p.tags limit: 4 %}<li class="chip">{{ site.data.tags[t] | default: t }}</li>{% endfor %}
+      </ul>
+    </div>
+  </article>
+</li>

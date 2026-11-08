@@ -1,0 +1,49 @@
+# Single source of truth for personal details – used by the layout, footer,
+# contact section and JSON-LD structured data.
+name: Abduallh Rawak
+alternate_name: Abduallh Eid        # name used on GitHub – [VERIFY] keep or remove
+job_title: Data Analyst & BI Engineer
+headline: Data Analyst · BI Engineer · Data Scientist
+location: Riyadh, Saudi Arabia
+locality: Riyadh
+country: SA
+email: roawaq@gmail.com
+phone: "+966 568500706"
+phone_href: "+966568500706"
+whatsapp: "966510524527"
+github: abduallheid
+linkedin: abduallheid
+twitter: abduallh_eid
+image: /assets/img/portrait-960.webp
+og_image: /assets/img/og-default.jpg
+cv:
+  - label: Data Analyst CV
+    file: /assets/cv/abduallh-rawak-data-analyst-cv.pdf
+  - label: Data Scientist CV
+    file: /assets/cv/abduallh-rawak-data-scientist-cv.pdf
+available_for_freelance: true
+summary: >-
+  I turn messy operational data into decisions. I design data warehouses,
+  ETL pipelines and Power BI / Microsoft Fabric dashboards that managers use
+  every day, and I build machine-learning models when a forecast or a
+  classification beats a static report.
+years_experience: 5   # [VERIFY] the old site said "over 5 years"; data roles start Feb 2020
+education:
+  - degree: Bachelor of Computer Science
+    school: Beni-Suef University (BSU)   # [VERIFY] full university name
+    dates: 2019 – 2022                    # [VERIFY] the old site listed 2019-2022
+  - degree: Professional Diploma in Data Science (CDSP)
+    school: Epsilon AI Institute
+    dates: Jan 2021 – Dec 2021
+knows_about:
+  - Power BI
+  - Microsoft Fabric
+  - DAX
+  - SQL
+  - Data warehousing
+  - ETL
+  - Python
+  - Machine learning
+  - scikit-learn
+  - TensorFlow
+  - Streamlit

@@ -1,0 +1,24 @@
+{%- comment -%}
+  Confusion matrix as a real table. Params: tn fp fn tp, title, neg ("Retained"), pos ("Churned"), note.
+  Cell tint = sequential single hue scaled to the largest cell (6%–35%, so text keeps AA contrast).
+{%- endcomment -%}
+{%- assign cells = "" | split: "" | push: include.tn | push: include.fp | push: include.fn | push: include.tp -%}
+{%- assign max = cells | sort | last | times: 1.0 -%}
+{%- assign total = include.tn | plus: include.fp | plus: include.fn | plus: include.tp -%}
+{%- capture cid -%}cm-{{ include.title | slugify }}{%- endcapture -%}
+{%- assign neg = include.neg | default: "Negative" -%}{%- assign pos = include.pos | default: "Positive" -%}
+<figure class="chart" aria-labelledby="{{ cid }}">
+  <figcaption id="{{ cid }}"><strong>{{ include.title }}</strong><span>Counts on {{ total }} held-out records · rows = actual, columns = predicted</span></figcaption>
+  <table class="matrix">
+    <thead><tr><td style="background:none"></td><th scope="col">Predicted {{ neg | downcase }}</th><th scope="col">Predicted {{ pos | downcase }}</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Actual {{ neg | downcase }}</th>
+        <td style="--t:{{ include.tn | times: 29 | divided_by: max | plus: 6 | round }}%">{{ include.tn }}<small>true negatives</small></td>
+        <td style="--t:{{ include.fp | times: 29 | divided_by: max | plus: 6 | round }}%">{{ include.fp }}<small>false positives</small></td></tr>
+      <tr><th scope="row">Actual {{ pos | downcase }}</th>
+        <td style="--t:{{ include.fn | times: 29 | divided_by: max | plus: 6 | round }}%">{{ include.fn }}<small>false negatives</small></td>
+        <td style="--t:{{ include.tp | times: 29 | divided_by: max | plus: 6 | round }}%">{{ include.tp }}<small>true positives</small></td></tr>
+    </tbody>
+  </table>
+  {%- if include.note %}<p class="chart-note">{{ include.note }}</p>{% endif %}
+</figure>

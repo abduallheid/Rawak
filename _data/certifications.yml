@@ -1,0 +1,30 @@
+# One entry per certificate. `issuer_group` drives the filter and the chart.
+# Add `url:` with the credential link to replace the generic LinkedIn link.
+# Dates marked [VERIFY] were missing on the old site.
+- { title: Data Analysis with Power BI, issuer: Microsoft, issuer_group: Microsoft, date: Feb 2021 }
+- { title: Implementing Azure Infrastructure Solutions, issuer: Microsoft, issuer_group: Microsoft, date: Sep 2021 }
+- { title: Principles of Sustainable Software Engineering, issuer: Microsoft, issuer_group: Microsoft, date: Jan 2022 }
+- { title: Perform Cloud Data Science with Azure Machine Learning, issuer: Microsoft, issuer_group: Microsoft, date: Apr 2022 }
+- { title: Explore and Analyze Data Using Python, issuer: Microsoft, issuer_group: Microsoft, date: Feb 2023 }
+- { title: ML for Business & Technical Decision Makers, issuer: AWS, issuer_group: AWS, date: Dec 2022 }
+- { title: ML for Business Challenges, issuer: AWS, issuer_group: AWS, date: Feb 2021, credential_id: E-E0J39V }
+- { title: ML Essentials for Business and Technical Decision Makers, issuer: AWS, issuer_group: AWS, date: Jul 2022 }
+- { title: "Data Science Capstone: Real World ML Decisions", issuer: AWS, issuer_group: AWS, date: Feb 2022 }
+- { title: Planning a Machine Learning Project, issuer: AWS, issuer_group: AWS, date: Nov 2023 }
+- { title: Machine Learning for Data Science Projects, issuer: IBM, issuer_group: IBM, date: Nov 2023 }
+- { title: Deploy Apps Using DevOps, issuer: IBM, issuer_group: IBM, date: Apr 2021 }
+- { title: Data Science, issuer: IBM, issuer_group: IBM, date: Apr 2022 }
+- { title: IBM Watson Studio, issuer: IBM, issuer_group: IBM, date: Nov 2022 }
+- { title: Communicating Insights, issuer: IBM, issuer_group: IBM, date: May 2022 }
+- { title: Generative AI, issuer: Google Cloud, issuer_group: Google, date: Dec 2023 }
+- { title: AI in Marketing and Finance, issuer: University of Pennsylvania, issuer_group: Universities, date: "[VERIFY]" }
+- { title: AI Applications in Marketing and Finance, issuer: University of Pennsylvania, issuer_group: Universities, date: Jan 2024 }
+- { title: Applied Machine Learning in Python, issuer: University of Michigan, issuer_group: Universities, date: "[VERIFY]" }
+- { title: Intermediate Machine Learning, issuer: Kaggle, issuer_group: Other, date: Feb 2022 }
+- { title: Artificial Intelligence Fundamentals, issuer: FutureLearn, issuer_group: Other, date: Aug 2021 }
+- { title: Learning Python, issuer: LinkedIn Learning, issuer_group: Other, date: Mar 2022 }
+- { title: Data Curation for SAS Data Scientists, issuer: SAS, issuer_group: Other, date: Sep 2022 }
+- { title: Machine Learning Operations (MLOps), issuer: Coursera, issuer_group: Other, date: Aug 2023 }
+- { title: Business Model Innovation, issuer: Egypt Innovate, issuer_group: Other, date: Apr 2023 }
+- { title: Database Fundamentals, issuer: ITI, issuer_group: Other, date: Mar 2021 }
+- { title: Generative AI at SAP, issuer: SAP, issuer_group: Other, date: Nov 2023 }

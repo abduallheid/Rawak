@@ -1,0 +1,73 @@
+{%- assign profile = site.data.profile -%}
+{%- if page.seo_title -%}{%- assign seo_title = page.seo_title -%}
+{%- elsif page.title -%}{%- capture seo_title -%}{{ page.title }} | {{ site.title }}{%- endcapture -%}
+{%- else -%}{%- assign seo_title = site.title -%}{%- endif -%}
+{%- assign seo_description = page.description | default: page.summary | default: site.description | strip_html | normalize_whitespace -%}
+{%- assign canonical = page.url | replace: 'index.html', '' | absolute_url -%}
+{%- if page.image.base -%}{%- capture og_image -%}{{ page.image.base }}-og.jpg{%- endcapture -%}{%- assign og_alt = page.image.alt -%}
+{%- else -%}{%- assign og_image = profile.og_image -%}{%- capture og_alt -%}{{ profile.name }} – {{ profile.headline }}{%- endcapture -%}{%- endif -%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ seo_title | escape }}</title>
+<meta name="description" content="{{ seo_description | escape }}">
+<link rel="canonical" href="{{ canonical }}">
+{%- if page.noindex %}
+<meta name="robots" content="noindex, follow">
+{%- else %}
+<meta name="robots" content="index, follow, max-image-preview:large">
+{%- endif %}
+<meta name="author" content="{{ profile.name }}">
+<meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121317" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+{%- if site.verification.google != "" %}
+<meta name="google-site-verification" content="{{ site.verification.google }}">
+{%- endif %}
+{%- if site.verification.bing != "" %}
+<meta name="msvalidate.01" content="{{ site.verification.bing }}">
+{%- endif %}
+
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="{{ page.title | default: site.title | escape }}">
+<meta property="og:description" content="{{ seo_description | escape }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:image" content="{{ og_image | absolute_url }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ og_alt | escape }}">
+{%- if page.collection == "projects" %}
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+{%- if page.last_modified_at %}
+<meta property="article:modified_time" content="{{ page.last_modified_at | date_to_xmlschema }}">
+{%- endif %}
+{%- for tag in page.tags %}
+<meta property="article:tag" content="{{ site.data.tags[tag] | default: tag }}">
+{%- endfor %}
+{%- else %}
+<meta property="og:type" content="{% if page.url == '/' %}profile{% else %}website{% endif %}">
+{%- endif %}
+<meta name="twitter:card" content="summary_large_image">
+{%- if profile.twitter %}
+<meta name="twitter:creator" content="@{{ profile.twitter }}">
+{%- endif %}
+<meta name="twitter:title" content="{{ page.title | default: site.title | escape }}">
+<meta name="twitter:description" content="{{ seo_description | escape }}">
+<meta name="twitter:image" content="{{ og_image | absolute_url }}">
+
+<link rel="icon" href="{{ '/favicon.svg' | relative_url }}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ '/apple-touch-icon.png' | relative_url }}">
+<link rel="alternate" type="application/atom+xml" title="{{ site.title }} – case studies" href="{{ '/feed.xml' | relative_url }}">
+<link rel="sitemap" type="application/xml" href="{{ '/sitemap.xml' | relative_url }}">
+{%- if page.preload_image %}
+<link rel="preload" as="image" type="image/webp" href="{{ page.preload_image | relative_url }}"{% if page.preload_srcset %} imagesrcset="{{ page.preload_srcset }}" imagesizes="{{ page.preload_sizes }}"{% endif %} fetchpriority="high">
+{%- endif %}
+{%- comment -%} Set theme before first paint (no flash), and flag JS for progressive enhancement. {%- endcomment %}
+<script>(function(d){d.className+=' js';try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')d.setAttribute('data-theme',t)}catch(e){}})(document.documentElement)</script>
+{%- capture css -%}{% include main.scss %}{%- endcapture %}
+<style>{{ css | scssify }}</style>
+{% include jsonld.html %}
+{%- if site.goatcounter != "" %}
+<script data-goatcounter="https://{{ site.goatcounter }}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+{%- endif %}
