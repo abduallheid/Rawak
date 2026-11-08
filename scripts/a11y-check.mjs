@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Accessibility gate: axe-core (WCAG 2.2 AA) on each URL, in light and dark mode, at phone and desktop width.
-// Uses Playwright's bundled Chromium, so there is no ChromeDriver/Chrome version mismatch.
+// Drives the browser through Playwright (no ChromeDriver, so no driver/browser version mismatch).
 // Usage: node scripts/a11y-check.mjs http://localhost:8090/Rawak/ http://localhost:8090/Rawak/projects/ ...
 import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
@@ -10,7 +10,8 @@ const { AxeBuilder } = require("@axe-core/playwright");
 const urls = process.argv.slice(2);
 if (!urls.length) { console.error("Pass at least one URL."); process.exit(2); }
 const tags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
-const browser = await chromium.launch();
+// CHROME_PATH lets CI reuse the runner's preinstalled Chrome instead of downloading one.
+const browser = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {});
 let failures = 0;
 for (const colorScheme of ["light", "dark"]) {
   for (const width of [360, 1280]) {
