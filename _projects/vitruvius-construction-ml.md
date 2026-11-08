@@ -49,7 +49,6 @@ Browser ─► Laravel (routes, controllers, Blade + Tailwind) ─► MySQL
 
 ## Challenges
 
-- **Joining two ecosystems.** Serving a Python model from a PHP application meant agreeing on a clear contract for inputs and outputs between team members. [VERIFY]
 - **Scope.** A two-sided marketplace is large for a student team; the README still lists the project as under development.
 
 ## Lessons

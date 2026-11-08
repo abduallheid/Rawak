@@ -14,7 +14,7 @@ stack: [Python, scikit-learn, pandas, FastAPI, Pydantic, Streamlit, Docker, Powe
 languages: [Python]
 repo: https://github.com/abduallheid/Customer-Churn-Prediction-for-a-Telecom-Company-
 demo: https://orangechurn.streamlit.app/
-role: Sole developer – analysis, modelling, API, app, dashboard and CI. [VERIFY]
+role: Sole developer – analysis, modelling, API, app, dashboard and CI.
 problem: Spot which subscribers are about to leave early enough for the retention team to act – and tell them why.
 image:
   base: /assets/img/projects/orange-telecom-churn/cover

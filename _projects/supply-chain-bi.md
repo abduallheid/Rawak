@@ -13,7 +13,7 @@ tags: [power-bi, data-analysis, python, machine-learning, forecasting]
 stack: [Power BI, DAX, Python, pandas, scikit-learn, XGBoost]
 languages: [Python, DAX]
 repo: https://github.com/abduallheid/Supply-chain-Business-Analysis
-role: Sole analyst – ETL, data model, DAX measures, report design and ML experiment. [VERIFY]
+role: Sole analyst – ETL, data model, DAX measures, report design and ML experiment.
 problem: Inventory, lead-time and supplier data sat in one flat file, so it couldn't show where the supply chain was losing time or money.
 image:
   base: /assets/img/projects/supply-chain-bi/cover
@@ -21,6 +21,12 @@ image:
   height: 695
   alt: Power BI supply chain overview page with KPI cards for total revenue, supply cost, products sold and production volume, plus revenue-by-product and monthly sales charts.
   caption: Overview page – revenue, cost and volume KPIs with slicers for customer demographics, location, product type and supplier.
+supplier_fail_rate:
+  - { label: "Supplier 4", value: 0.667 }
+  - { label: "Supplier 5", value: 0.389 }
+  - { label: "Supplier 2", value: 0.364 }
+  - { label: "Supplier 1", value: 0.222 }
+  - { label: "Supplier 3", value: 0.200 }
 mutual_information:
   - { label: "Location", value: 0.233 }
   - { label: "Manufacturing lead time", value: 0.149 }
@@ -67,7 +73,15 @@ supply_chain_data.csv ─► ETL.ipynb (pandas: profile, clean, filter) ─► p
 
 ![Power BI supplier performance page with on-time delivery, defect-rate gauge, SLT adherence and supplier cost-efficiency visuals]({{ '/assets/img/projects/supply-chain-bi/supplier-performance-lg.webp' | relative_url }}){: width="1222" height="691" loading="lazy"}
 
-The **Performance** page puts supplier on-time delivery, defect rate and lead-time adherence side by side, so a buyer can compare suppliers on reliability and quality at once instead of on price alone. [FILL IN: the most important finding – e.g. which supplier or route stood out, and by how much]
+The **Performance** page puts supplier on-time delivery, defect rate and lead-time adherence side by side, so a buyer can compare suppliers on reliability and quality at once instead of on price alone.
+
+The comparison makes one supplier stand out at each end:
+
+{% include chart-bars.html rows=page.supplier_fail_rate title="Share of each supplier's products that failed inspection" subtitle="Products with inspection result “Fail” ÷ all products from that supplier" format="percent" label_heading="Supplier" value_heading="Failed inspection" note="Source: supply_chain_data.CSV in the project repository (all 100 product records), recomputed with pandas." %}
+
+- **Supplier 4 fails inspection on two-thirds of its products** (12 of 18), about three times the rate of Suppliers 1 and 3.
+- **Supplier 1 is the strongest all-round partner.** It has the lowest average defect rate (1.80 vs 2.65 for Supplier 5), the shortest average manufacturing lead time (12.6 vs 16.3 for Supplier 5), and the most revenue (157.5K of 577.6K, 27% from 27 products).
+- **Skincare is the biggest category,** with 42% of revenue (241.6K), ahead of haircare (30%) and cosmetics (28%).
 
 The ML experiment produced a clear, useful negative result. Mutual information showed which features carry *any* signal about units sold:
 
