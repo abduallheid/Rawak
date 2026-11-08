@@ -1,0 +1,38 @@
+{%- comment -%}
+  Accessible horizontal bar chart rendered at build time – a real <table>, so
+  screen readers, print, Reader Mode and no-JS all get the numbers.
+  Params:
+    rows      array of hashes (already sorted, largest first)
+    label     key for the label (default "label")
+    value     key for the value (default "value")
+    title     chart title (required)
+    subtitle  what is measured + unit (recommended)
+    format    "percent" (0–1 → %), "decimal3", or empty for raw numbers
+    suffix    text appended to raw values
+    note      source / caveat line under the chart
+{%- endcomment -%}
+{%- assign lk = include.label | default: "label" -%}
+{%- assign vk = include.value | default: "value" -%}
+{%- assign max = include.rows[0][vk] | times: 1.0 -%}
+{%- capture cid -%}chart-{{ include.title | slugify }}{%- endcapture -%}
+<figure class="chart" aria-labelledby="{{ cid }}">
+  <figcaption id="{{ cid }}"><strong>{{ include.title }}</strong>{% if include.subtitle %}<span>{{ include.subtitle }}</span>{% endif %}</figcaption>
+  <table class="bars">
+    <thead class="sr-only"><tr><th scope="col">{{ include.label_heading | default: "Item" }}</th><th scope="col">{{ include.value_heading | default: "Value" }}</th></tr></thead>
+    <tbody>
+    {%- for r in include.rows %}
+      {%- assign v = r[vk] | times: 1.0 -%}
+      {%- assign w = v | times: 100 | divided_by: max | round: 1 -%}
+      <tr>
+        <th scope="row">{{ r[lk] }}</th>
+        <td><span class="bar-track"><span class="bar" style="--w:{{ w }}%" aria-hidden="true"></span><span class="bar-value">
+          {%- if include.format == "percent" -%}{{ v | times: 100 | round: 1 }}%
+          {%- elsif include.format == "decimal3" -%}{{ v | round: 3 }}
+          {%- else -%}{{ r[vk] }}{{ include.suffix }}{%- endif -%}
+        </span></span></td>
+      </tr>
+    {%- endfor %}
+    </tbody>
+  </table>
+  {%- if include.note %}<p class="chart-note">{{ include.note }}</p>{% endif %}
+</figure>

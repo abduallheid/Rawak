@@ -1,0 +1,11 @@
+---
+layout: null
+sitemap: false
+---
+# NOTE: crawlers only read robots.txt at the host root (abduallheid.github.io/robots.txt).
+# This copy is served at /Rawak/robots.txt and is kept for when the site moves to a
+# custom domain or a user site. Until then, submit the sitemap in Search Console.
+User-agent: *
+Allow: /
+
+Sitemap: {{ '/sitemap.xml' | absolute_url }}

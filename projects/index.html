@@ -1,0 +1,40 @@
+---
+title: Data analytics & machine-learning case studies
+seo_title: Power BI, SQL & ML Case Studies | Abduallh Rawak
+description: Case studies of Power BI dashboards, SQL analysis and Python machine-learning projects – each with the problem, approach, stack, results and code.
+schema_type: CollectionPage
+layout: default
+---
+{%- assign projects = site.projects | sort: "order" -%}
+{%- assign all_tags = "" | split: "" -%}
+{%- for p in projects -%}{%- if p.tags -%}{%- assign all_tags = all_tags | concat: p.tags -%}{%- endif -%}{%- endfor -%}
+{%- assign all_tags = all_tags | uniq | sort -%}
+<style>
+{%- for t in all_tags %}
+[data-filter-group]:has(#f-{{ t }}:checked) [data-tags]:not([data-tags~="{{ t }}"]) { display: none; }
+{%- endfor %}
+</style>
+<div class="wrap">
+  <header class="article-head prose">
+    <p class="eyebrow">Portfolio</p>
+    <h1>{{ page.title }}</h1>
+    <p class="lead muted">Each case study follows the same structure – problem, approach, stack, architecture, results, challenges and lessons – with links to the code and, where one exists, a live app.</p>
+  </header>
+
+  <div data-filter-group>
+    <fieldset class="filters">
+      <legend>Filter by topic</legend>
+      <input type="radio" name="tag" id="f-all" value="all" checked><label for="f-all">All ({{ projects | size }})</label>
+      {%- for t in all_tags %}
+      {%- assign n = projects | where_exp: "p", "p.tags contains t" | size %}
+      <input type="radio" name="tag" id="f-{{ t }}" value="{{ t }}"><label for="f-{{ t }}">{{ site.data.tags[t] | default: t }} ({{ n }})</label>
+      {%- endfor %}
+    </fieldset>
+    <p class="sr-only" role="status" aria-live="polite"></p>
+    <ul class="grid" style="padding-bottom:4rem">
+      {%- for p in projects %}
+      {% include project-card.html project=p heading="h2" eager=forloop.first %}
+      {%- endfor %}
+    </ul>
+  </div>
+</div>

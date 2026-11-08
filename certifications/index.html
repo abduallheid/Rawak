@@ -1,0 +1,44 @@
+---
+title: Certifications
+seo_title: Certifications – Microsoft, AWS, IBM | Abduallh Rawak
+description: 27 certifications in data analysis, cloud machine learning and BI from Microsoft, AWS, IBM, Google Cloud, the University of Pennsylvania and others.
+schema_type: CollectionPage
+layout: default
+---
+{%- assign certs = site.data.certifications -%}
+{%- assign groups = certs | group_by: "issuer_group" | sort: "size" | reverse -%}
+<style>
+{%- for g in groups %}{% assign gid = g.name | slugify %}
+[data-filter-group]:has(#c-{{ gid }}:checked) [data-tags]:not([data-tags="{{ gid }}"]) { display: none; }
+{%- endfor %}
+</style>
+<div class="wrap">
+  <header class="article-head prose">
+    <p class="eyebrow">Learning</p>
+    <h1>{{ certs | size }} certifications</h1>
+    <p class="lead muted">Credentials in data analysis, cloud machine learning and business intelligence. Verified copies are on <a href="https://www.linkedin.com/in/{{ site.data.profile.linkedin }}/details/certifications/">my LinkedIn certifications page</a>.</p>
+  </header>
+  <div class="split" style="padding-bottom:4rem">
+    <div data-filter-group>
+      <fieldset class="filters">
+        <legend>Filter by issuer</legend>
+        <input type="radio" name="issuer" id="c-all" checked><label for="c-all">All ({{ certs | size }})</label>
+        {%- for g in groups %}{% assign gid = g.name | slugify %}
+        <input type="radio" name="issuer" id="c-{{ gid }}"><label for="c-{{ gid }}">{{ g.name }} ({{ g.size }})</label>
+        {%- endfor %}
+      </fieldset>
+      <p class="sr-only" role="status" aria-live="polite"></p>
+      <ul class="timeline">
+        {%- for c in certs %}
+        <li data-tags="{{ c.issuer_group | slugify }}">
+          <h2 class="h3" style="font-size:1.05rem;margin:0">{% if c.url %}<a href="{{ c.url }}">{{ c.title }}</a>{% else %}{{ c.title }}{% endif %}</h2>
+          <p class="meta">{{ c.issuer }} · {{ c.date }}{% if c.credential_id %} · Credential ID {{ c.credential_id }}{% endif %}</p>
+        </li>
+        {%- endfor %}
+      </ul>
+    </div>
+    <div>
+      {% include chart-bars.html rows=groups label="name" value="size" title="Certifications by issuer" subtitle="Count of certificates" label_heading="Issuer" value_heading="Certificates" %}
+    </div>
+  </div>
+</div>

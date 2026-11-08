@@ -1,0 +1,12 @@
+# Grouped by what the tool is used for. No self-rated percentages on purpose:
+# recruiters read them as noise. Evidence lives in the case studies.
+- group: BI & reporting
+  items: [Power BI, Microsoft Fabric, DAX, Excel]
+- group: Data engineering
+  items: [SQL, PostgreSQL, MySQL, Data warehousing, ETL pipelines, Data modelling]
+- group: Analysis & ML
+  items: [Python, pandas, NumPy, scikit-learn, TensorFlow, Keras, PyTorch, A/B testing]
+- group: Apps & delivery
+  items: [Streamlit, FastAPI, Docker, Git & GitHub, Jupyter]
+- group: Cloud
+  items: [Azure, AWS, Google Cloud]

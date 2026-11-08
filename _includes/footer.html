@@ -1,0 +1,12 @@
+{%- assign profile = site.data.profile -%}
+<footer class="site-footer">
+  <div class="wrap">
+    <p>© {{ site.time | date: "%Y" }} {{ profile.name }} · {{ profile.location }}</p>
+    <ul>
+      <li><a href="https://github.com/{{ profile.github }}">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/{{ profile.linkedin }}/">LinkedIn</a></li>
+      <li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li>
+      <li><a href="{{ '/sitemap.xml' | relative_url }}">Sitemap</a></li>
+    </ul>
+  </div>
+</footer>

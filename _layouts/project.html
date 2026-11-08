@@ -1,0 +1,75 @@
+---
+layout: default
+---
+{%- assign profile = site.data.profile -%}
+{%- assign projects = site.projects | sort: "order" -%}
+{%- for p in projects -%}{%- if p.url == page.url -%}{%- assign idx = forloop.index0 -%}{%- endif -%}{%- endfor -%}
+{%- assign prev_i = idx | minus: 1 -%}{%- assign next_i = idx | plus: 1 -%}
+<article class="wrap" itemscope itemtype="https://schema.org/BlogPosting">
+  <header class="article-head">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="{{ '/' | relative_url }}">Home</a></li>
+        <li><a href="{{ '/projects/' | relative_url }}">Case studies</a></li>
+        <li><span aria-current="page">{{ page.short_title | default: page.title }}</span></li>
+      </ol>
+    </nav>
+    <p class="eyebrow">Case study</p>
+    <h1 itemprop="headline">{{ page.title }}</h1>
+    <p class="lead muted prose" itemprop="description">{{ page.description }}</p>
+    <div class="article-meta">
+      <span>By <span itemprop="author">{{ profile.name }}</span></span>
+      <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%B %Y" }}</time>
+      {%- if page.last_modified_at %}<span>Updated <time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{{ page.last_modified_at | date: "%b %Y" }}</time></span>{% endif %}
+      <span>{% include reading-time.html content=content %}</span>
+    </div>
+    <ul class="chips">
+      {%- for t in page.tags %}<li class="chip">{{ site.data.tags[t] | default: t }}</li>{% endfor %}
+    </ul>
+    <div class="actions">
+      {%- if page.demo %}<a class="btn btn-primary" href="{{ page.demo }}">Open live app <svg aria-hidden="true"><use href="#i-external"/></svg></a>{% endif %}
+      {%- if page.repo %}<a class="btn btn-ghost" href="{{ page.repo }}"><svg aria-hidden="true"><use href="#i-github"/></svg> View code</a>{% endif %}
+    </div>
+  </header>
+
+  <figure class="article-hero">
+    <img src="{{ page.image.base | append: '-lg.webp' | relative_url }}"
+         srcset="{{ page.image.base | append: '-sm.webp' | relative_url }} 640w, {{ page.image.base | append: '-lg.webp' | relative_url }} {{ page.image.width }}w"
+         sizes="(min-width: 72rem) 68rem, 92vw"
+         width="{{ page.image.width }}" height="{{ page.image.height }}"
+         alt="{{ page.image.alt | escape }}" fetchpriority="high" decoding="async" itemprop="image">
+    {%- if page.image.caption %}<figcaption class="muted small">{{ page.image.caption }}</figcaption>{% endif %}
+  </figure>
+
+  <dl class="glance">
+    <div><dt>Problem</dt><dd>{{ page.problem }}</dd></div>
+    <div><dt>My role</dt><dd>{{ page.role }}</dd></div>
+    <div><dt>Stack</dt><dd>{{ page.stack | join: ", " }}</dd></div>
+  </dl>
+
+  {%- if page.results %}
+  <h2 class="sr-only">Key results</h2>
+  <ul class="stats" style="margin-bottom:2.5rem">
+    {%- for r in page.results %}
+    <li><span class="stat-value">{{ r.value }}</span><span class="stat-label">{{ r.label }}</span></li>
+    {%- endfor %}
+  </ul>
+  {%- endif %}
+
+  <div class="article-body" itemprop="articleBody">
+    {%- comment -%} tabindex lets keyboard users scroll wide code blocks (WCAG 2.1.1) {%- endcomment -%}
+    {{ content | replace: '<pre', '<pre tabindex="0"' }}
+  </div>
+
+  <nav aria-label="More case studies">
+    <ul class="pager">
+      {%- if idx > 0 %}{% assign pp = projects[prev_i] %}
+      <li><a href="{{ pp.url | relative_url }}" rel="prev"><small>← Previous case study</small><strong>{{ pp.title }}</strong></a></li>
+      {%- endif %}
+      {%- if projects[next_i] %}{% assign np = projects[next_i] %}
+      <li class="next"><a href="{{ np.url | relative_url }}" rel="next"><small>Next case study →</small><strong>{{ np.title }}</strong></a></li>
+      {%- endif %}
+    </ul>
+  </nav>
+  <p style="margin-top:2rem"><a href="{{ '/projects/' | relative_url }}">All case studies</a> · <a href="{{ '/#contact' | relative_url }}">Hire me for a similar project</a></p>
+</article>

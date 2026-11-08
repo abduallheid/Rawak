@@ -1,0 +1,21 @@
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="{{ '/' | relative_url }}">Abduallh <span>Rawak</span></a>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul class="nav-list">
+        {%- assign nav = "Case studies|/projects/;Experience|/#experience;Certifications|/certifications/;Contact|/#contact" | split: ";" -%}
+        {%- for item in nav -%}
+        {%- assign parts = item | split: "|" -%}
+        <li><a href="{{ parts[1] | relative_url }}"{% if page.url == parts[1] or page.collection == "projects" and parts[1] == "/projects/" %} aria-current="page"{% endif %}>{{ parts[0] }}</a></li>
+        {%- endfor %}
+      </ul>
+    </nav>
+    <button class="icon-btn theme-toggle" type="button" aria-label="Switch colour theme" hidden>
+      <svg class="theme-icon-light" aria-hidden="true"><use href="#i-moon"/></svg>
+      <svg class="theme-icon-dark" aria-hidden="true"><use href="#i-sun"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <svg aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span>
+    </button>
+  </div>
+</header>

@@ -1,0 +1,59 @@
+# ---------------------------------------------------------------------------
+# Site settings. Personal details live in _data/profile.yml.
+# Builds with GitHub Pages' own Jekyll (3.10) – see README for local preview.
+# ---------------------------------------------------------------------------
+title: Abduallh Rawak
+description: >-
+  Data Analyst and BI engineer in Riyadh building Power BI and Microsoft Fabric
+  reporting, SQL data warehouses and Python machine-learning models.
+url: https://abduallheid.github.io
+baseurl: /Rawak
+lang: en
+timezone: Asia/Riyadh
+theme: null   # no Primer theme: all layouts and CSS live in this repo
+
+# Search-engine verification. Paste ONLY the content="..." value of each meta tag.
+# Google: Search Console > Add property > URL prefix > HTML tag.
+# Bing:   Bing Webmaster Tools > Add site > HTML Meta Tag.
+verification:
+  google: ""   # [FILL IN]
+  bing: ""     # [FILL IN]
+
+# Optional privacy-friendly analytics (free for personal sites, no cookies).
+# Create https://<code>.goatcounter.com and put <code> here. Leave empty to disable.
+goatcounter: ""
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+defaults:
+  - scope: { path: "", type: projects }
+    values: { layout: project }
+  - scope: { path: "" }
+    values: { layout: page }
+
+plugins:
+  - jekyll-sitemap
+
+sass:
+  style: compressed
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter_opts:
+    disable: true
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - scripts/
+  - docs/
+  - vendor/
+  - node_modules/
+  - lighthouserc.json
+  - package.json
+  - package-lock.json

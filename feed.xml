@@ -1,0 +1,29 @@
+---
+layout: null
+sitemap: false
+---
+<?xml version="1.0" encoding="utf-8"?>
+{%- assign projects = site.projects | sort: "date" | reverse %}
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="{{ site.lang }}">
+  <title>{{ site.title | xml_escape }} – case studies</title>
+  <subtitle>{{ site.description | strip | xml_escape }}</subtitle>
+  <link href="{{ '/feed.xml' | absolute_url }}" rel="self" type="application/atom+xml"/>
+  <link href="{{ '/' | absolute_url }}" rel="alternate" type="text/html"/>
+  <id>{{ '/' | absolute_url }}</id>
+  <updated>{{ site.time | date_to_xmlschema }}</updated>
+  <author><name>{{ site.data.profile.name | xml_escape }}</name><uri>{{ '/' | absolute_url }}</uri></author>
+  {%- for p in projects %}
+  <entry>
+    <title>{{ p.title | xml_escape }}</title>
+    <link href="{{ p.url | absolute_url }}" rel="alternate" type="text/html"/>
+    <id>{{ p.url | absolute_url }}</id>
+    <published>{{ p.date | date_to_xmlschema }}</published>
+    <updated>{{ p.last_modified_at | default: p.date | date_to_xmlschema }}</updated>
+    <summary>{{ p.description | xml_escape }}</summary>
+    {%- for t in p.tags %}
+    <category term="{{ t }}" label="{{ site.data.tags[t] | default: t | xml_escape }}"/>
+    {%- endfor %}
+    <content type="html">{{ p.content | xml_escape }}</content>
+  </entry>
+  {%- endfor %}
+</feed>

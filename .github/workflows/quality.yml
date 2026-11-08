@@ -1,0 +1,32 @@
+# Pull-request quality gate: build, check links/HTML, run Lighthouse (mobile) and axe.
+name: Quality checks
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with: { ruby-version: "3.3", bundler-cache: true }
+      - name: Build (served under /Rawak like production)
+        run: |
+          bundle exec jekyll build -d _site/Rawak
+          cp _site/Rawak/404.html _site/404.html
+        env: { JEKYLL_ENV: production, LANG: C.UTF-8, LC_ALL: C.UTF-8 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Lighthouse CI (mobile, fails below 0.95)
+        run: npx --yes @lhci/cli@0.14.0 autorun
+      - name: Accessibility (axe-core, WCAG 2.2 AA)
+        run: |
+          npx --yes http-server@14.1.1 _site -p 8090 -s &
+          sleep 2
+          npx --yes @axe-core/cli@4.10.1 --exit --tags wcag2a,wcag2aa,wcag21aa,wcag22aa \
+            http://localhost:8090/Rawak/ \
+            http://localhost:8090/Rawak/projects/ \
+            http://localhost:8090/Rawak/projects/orange-telecom-churn/ \
+            http://localhost:8090/Rawak/certifications/

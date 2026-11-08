@@ -1,0 +1,11 @@
+# Tag slug -> display label. Use these slugs in project front matter `tags:`.
+machine-learning: Machine learning
+deep-learning: Deep learning
+power-bi: Power BI
+sql: SQL
+python: Python
+streamlit: Streamlit
+mlops: MLOps
+data-analysis: Data analysis
+web-app: Web app
+forecasting: Forecasting
