@@ -25,7 +25,7 @@ image:
 results:
   - { value: "95.1%", label: "accuracy on the held-out test set" }
   - { value: "4,263", label: "labelled pest images" }
-  - { value: "8", label: "pest classes [VERIFY: the old site said 12]" }
+  - { value: "8", label: "pest species classified" }
   - { value: "184K", label: "model parameters – small enough for a free app tier" }
 ---
 
@@ -35,7 +35,7 @@ Correctly naming a pest is the first step to treating it, and getting it wrong m
 
 ## Approach
 
-**Data.** 4,263 labelled photos across 8 pest classes, collected from the [IPM Images](https://www.ipmimages.org/) archive. [VERIFY: class list and image licence]
+**Data.** 4,263 labelled photos across 8 pest classes, sourced from the [IPM Images](https://www.ipmimages.org/) archive. [VERIFY: image licence] The classes are labelled by species code: BA, HA, MP, SE, SL, TP, TU and ZC – for example *Bemisia argentifolii* (silverleaf whitefly), *Helicoverpa armigera* (cotton bollworm), *Myzus persicae* (green peach aphid) and *Spodoptera* armyworms. [VERIFY: species names for each code]
 
 **Preprocessing.** Images loaded with `image_dataset_from_directory`, resized to 256 × 256 and rescaled to 0–1 inside the model, so the deployed app needs no separate preprocessing code. The dataset was split **80 / 10 / 10** into train, validation and test, then cached and prefetched with `tf.data` for faster training on Colab GPUs.
 
@@ -64,7 +64,6 @@ Photo upload (Streamlit) ─► resize 256×256 + rescale ─► CNN (Keras Save
 ## Challenges
 
 - **Validation accuracy fluctuated** between epochs (for example 88% at epoch 48, 95% at epoch 50) because the validation set is small (about 6 batches). Early stopping on validation loss, or a larger validation split, would give a more stable model choice.
-- **Look-alike larvae.** Several caterpillar classes differ only in colour and markings, which is where most errors occur. [VERIFY]
 
 ## Lessons
 

@@ -21,12 +21,14 @@ jobs:
         with: { node-version: 22 }
       - name: Lighthouse CI (mobile, fails below 0.95)
         run: npx --yes @lhci/cli@0.14.0 autorun
-      - name: Accessibility (axe-core, WCAG 2.2 AA)
+      - name: Accessibility (axe-core WCAG 2.2 AA + no horizontal scroll, light/dark, 360/1280px)
         run: |
+          npm install --no-save --no-package-lock playwright@1.55.0 @axe-core/playwright@4.10.1
           npx --yes http-server@14.1.1 _site -p 8090 -s &
           sleep 2
-          npx --yes @axe-core/cli@4.10.1 --exit --tags wcag2a,wcag2aa,wcag21aa,wcag22aa \
-            http://localhost:8090/Rawak/ \
-            http://localhost:8090/Rawak/projects/ \
-            http://localhost:8090/Rawak/projects/orange-telecom-churn/ \
-            http://localhost:8090/Rawak/certifications/
+          B=http://localhost:8090/Rawak
+          export CHROME_PATH=$(command -v google-chrome || command -v chromium || echo /opt/google/chrome/chrome)
+          node scripts/a11y-check.mjs $B/ $B/projects/ $B/certifications/ \
+            $B/projects/orange-telecom-churn/ $B/projects/supply-chain-bi/ \
+            $B/projects/tomato-pest-classifier/ $B/projects/sales-insights-sql-powerbi/ \
+            $B/projects/software-salary-prediction/ $B/projects/vitruvius-construction-ml/

@@ -21,11 +21,19 @@ image:
   height: 627
   alt: Dark-themed Power BI sales insight dashboard with sales by market, sales by store, monthly growth line and average sales quantity by customer.
   caption: Sales insight dashboard – markets, stores, monthly growth and quantity by customer.
+market_share:
+  - { label: "Delhi NCR", value: 0.528 }
+  - { label: "Mumbai", value: 0.152 }
+  - { label: "Ahmedabad", value: 0.134 }
+  - { label: "Nagpur", value: 0.056 }
+  - { label: "Bhopal (Mark007)", value: 0.043 }
+  - { label: "Kochi", value: 0.019 }
+  - { label: "Other 9 markets", value: 0.068 }
 ---
 
 ## Problem
 
-The data comes from **AtliQ Hardware**, a fictional computer-hardware distributor dataset that is widely used for practice. [VERIFY: source attribution] Its sales director could not answer simple questions quickly – *how much did we sell in Chennai in 2020? Which markets are declining?* – because the data lived in a transactional MySQL database that only engineers queried.
+The data comes from **AtliQ Hardware**, a fictional computer-hardware distributor dataset that is widely used for practice: 150,283 transactions across 15 Indian markets from October 2017 to June 2020. Its sales director could not answer simple questions quickly – *how much did we sell in Chennai in 2020? Which markets are declining?* – because the data lived in a transactional MySQL database that only engineers queried.
 
 ## Approach
 
@@ -54,7 +62,12 @@ MySQL dump ─► MySQL Workbench (exploration SQL) ─► cleaning (currency fi
 
 - A dashboard the sales team can filter by year, month and market without writing SQL.
 - Revenue figures that are correct across currencies, after normalising INR and USD transactions.
-- [FILL IN: the headline insights – e.g. the top 3 markets by revenue share and the markets with falling sales.]
+- **One market carries the business.** Delhi NCR brings in more than half of all revenue, and the top three markets bring in 81%.
+- **Revenue fell 19% from 2018 to 2019** (₹414M → ₹337M, the last two full years). Delhi NCR fell 22%, so the decline is mostly a Delhi NCR story.
+- **A few small markets grew against the trend:** Hyderabad (+14%), the larger of the two Bhopal market codes (+8%) and Kochi (+6%).
+- **Chennai, the market the original SQL questions focused on, nearly halved** (−43%, ₹9.0M → ₹5.1M).
+
+{% include chart-bars.html rows=page.market_share title="Revenue share by market" subtitle="Share of total revenue, October 2017 – June 2020 (top 6 markets + the other 9 combined)" format="percent" label_heading="Market" value_heading="Share of revenue" note="Source: db_dump.sql in the project repository, recomputed in Python. Excludes 1,611 zero or negative amounts. The 4 USD transactions are converted at ₹75/USD; they do not change any share." %}
 
 The repository also contains a **personal-finance dashboard** built with the same approach – income, spending by category, savings rate and a monthly statement:
 
@@ -63,7 +76,8 @@ The repository also contains a **personal-finance dashboard** built with the sam
 ## Challenges
 
 - **Dirty categorical values.** The hidden `\r` in currency codes silently dropped rows from filtered totals – a reminder to check `DISTINCT` values before trusting a `WHERE` clause.
-- **Mixed currencies.** Totals are only meaningful after converting to one currency. [VERIFY: conversion rate or method used]
+- **Mixed currencies.** Totals are only meaningful after converting to one currency. Only 4 of 150,283 transactions are in USD, so the rate barely matters here – but a filter on `currency = 'INR'` would silently have dropped them.
+- **Other data-quality traps in the dump:** 1,611 transactions with a zero or negative sales amount, two market codes (`Mark007`, `Mark013`) that are both named "Bhopal", and two markets (New York, Paris) with no sales at all. Each one distorts a market ranking if it isn't handled.
 
 ## Lessons
 
